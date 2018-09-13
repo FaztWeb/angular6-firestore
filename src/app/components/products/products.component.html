@@ -1,0 +1,32 @@
+<div *ngIf="products.length > 0; else noproducts">
+  <ul *ngFor="let p of products">
+    <li>
+      {{ p.name }} <br/>
+      {{p.description}} <br/>
+      {{p.price}} <br/>
+      <button (click)="deleteProduct($event, p)">
+        Delete
+      </button>
+
+      <button (click)="editProduct($event, p)">
+       Edit 
+      </button>
+      <div *ngIf="editing && editingProduct.id == p.id">
+        <form (ngSubmit)="updateProduct(product)">
+          <input type="text" name="name" [(ngModel)]="editingProduct.name">
+          <input type="text" name="description" [(ngModel)]="editingProduct.description">
+          <input type="text" name="price" [(ngModel)]="editingProduct.price">
+          <button type="submit">
+            Update
+          </button>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noproducts>
+  <p>
+    There are no products yet.
+  </p>
+</ng-template>
